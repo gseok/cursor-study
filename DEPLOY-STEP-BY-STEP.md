@@ -91,7 +91,7 @@ git push
 ### 2.4 환경 변수 설정 (Netlify)
 Site settings → Environment variables:
 ```
-REACT_APP_WS_URL=wss://your-railway-domain.up.railway.app
+REACT_APP_WS_URL=wss://cursor-study-production-4850.up.railway.app
 ```
 
 ### 2.5 재배포
@@ -102,7 +102,7 @@ REACT_APP_WS_URL=wss://your-railway-domain.up.railway.app
 ## 🧪 3단계: 전체 시스템 테스트
 
 ### 3.1 기본 연결 테스트
-1. Netlify 도메인 접속 (예: `your-app.netlify.app`)
+1. Netlify 도메인 접속 (예: `https://tictacto-gseok.netlify.app/`)
 2. 시작 화면에서 "온라인 멀티플레이어" 선택
 3. 플레이어 이름 입력 후 "게임 참여" 클릭
 4. "상대방을 찾고 있습니다..." 메시지 확인
