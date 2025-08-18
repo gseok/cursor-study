@@ -377,27 +377,64 @@ const PORT = process.env.PORT || 8080;
 const HOST = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
 
 server.listen(PORT, HOST, () => {
-  console.log(`🎮 틱택토 멀티플레이어 서버가 ${HOST}:${PORT}에서 실행 중입니다!`);
+  console.log('🎮 틱택토 멀티플레이어 서버 시작 완료!');
+  console.log(`📍 서버 주소: ${HOST}:${PORT}`);
+  console.log(`🌐 환경: ${process.env.NODE_ENV || 'development'}`);
   
   if (process.env.NODE_ENV === 'production') {
-    console.log(`WebSocket 서버: wss://${process.env.RAILWAY_STATIC_URL || 'your-domain.com'}`);
+    console.log(`🔗 Public URL: https://${process.env.RAILWAY_STATIC_URL || 'your-domain.com'}`);
+    console.log(`🔌 WebSocket URL: wss://${process.env.RAILWAY_STATIC_URL || 'your-domain.com'}`);
   } else {
-    console.log(`WebSocket 서버: ws://localhost:${PORT}`);
+    console.log(`🔗 Local URL: http://localhost:${PORT}`);
+    console.log(`🔌 WebSocket URL: ws://localhost:${PORT}`);
   }
+  
+  console.log('🏥 Health check: /health');
+  console.log('📊 Stats endpoint: /stats');
+  console.log('✅ 서버가 정상적으로 시작되었습니다!');
 });
 
-// 헬스체크 엔드포인트 (Railway, Render 등에서 사용)
+// HTTP 요청 처리 (헬스체크 및 기본 라우팅)
 server.on('request', (req, res) => {
-  if (req.url === '/health' || req.url === '/') {
-    res.writeHead(200, { 
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    });
+  // CORS 헤더 설정
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // OPTIONS 요청 처리 (CORS preflight)
+  if (req.method === 'OPTIONS') {
+    res.writeHead(200);
+    res.end();
+    return;
+  }
+
+  const url = req.url;
+  
+  if (url === '/health' || url === '/') {
+    // 헬스체크 엔드포인트
+    res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
       status: 'OK',
+      message: '틱택토 멀티플레이어 서버가 정상 작동 중입니다',
       timestamp: new Date().toISOString(),
       uptime: process.uptime(),
+      version: '1.0.0',
       stats: gameManager.getStats()
+    }));
+  } else if (url === '/stats') {
+    // 통계 엔드포인트
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      stats: gameManager.getStats(),
+      timestamp: new Date().toISOString()
+    }));
+  } else {
+    // 404 처리
+    res.writeHead(404, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      error: 'Not Found',
+      message: '요청한 경로를 찾을 수 없습니다',
+      availableEndpoints: ['/health', '/stats']
     }));
   }
 });
