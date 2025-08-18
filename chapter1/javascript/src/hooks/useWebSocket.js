@@ -26,7 +26,7 @@ const useWebSocket = () => {
         // WebSocket 서버 URL (환경별 설정)
         const wsUrl = process.env.REACT_APP_WS_URL || 
                      (process.env.NODE_ENV === 'production' 
-                      ? 'wss://your-app.up.railway.app'  // 배포 후 실제 도메인으로 변경
+                      ? 'wss://cursor-study-production-4850.up.railway.app'  // Railway 도메인
                       : 'ws://localhost:8080');
         
         console.log('WebSocket 연결 시도:', wsUrl);
