@@ -374,16 +374,17 @@ wss.on('connection', (ws) => {
 
 // 서버 시작
 const PORT = process.env.PORT || 8080;
-const HOST = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
+const HOST = '0.0.0.0'; // Railway에서는 항상 0.0.0.0으로 바인딩
 
 server.listen(PORT, HOST, () => {
   console.log('🎮 틱택토 멀티플레이어 서버 시작 완료!');
   console.log(`📍 서버 주소: ${HOST}:${PORT}`);
   console.log(`🌐 환경: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`🔧 Railway PORT: ${process.env.PORT || 'not set'}`);
   
   if (process.env.NODE_ENV === 'production') {
-    console.log(`🔗 Public URL: https://${process.env.RAILWAY_STATIC_URL || 'your-domain.com'}`);
-    console.log(`🔌 WebSocket URL: wss://${process.env.RAILWAY_STATIC_URL || 'your-domain.com'}`);
+    console.log(`🔗 Public URL: https://${process.env.RAILWAY_STATIC_URL || 'railway-domain.com'}`);
+    console.log(`🔌 WebSocket URL: wss://${process.env.RAILWAY_STATIC_URL || 'railway-domain.com'}`);
   } else {
     console.log(`🔗 Local URL: http://localhost:${PORT}`);
     console.log(`🔌 WebSocket URL: ws://localhost:${PORT}`);
@@ -392,6 +393,31 @@ server.listen(PORT, HOST, () => {
   console.log('🏥 Health check: /health');
   console.log('📊 Stats endpoint: /stats');
   console.log('✅ 서버가 정상적으로 시작되었습니다!');
+});
+
+// 서버 에러 처리
+server.on('error', (err) => {
+  console.error('❌ 서버 에러:', err);
+  if (err.code === 'EADDRINUSE') {
+    console.error(`❌ 포트 ${PORT}가 이미 사용 중입니다.`);
+  }
+});
+
+// 프로세스 종료 처리
+process.on('SIGTERM', () => {
+  console.log('🔄 SIGTERM 신호 받음. 서버를 종료합니다...');
+  server.close(() => {
+    console.log('✅ 서버가 정상적으로 종료되었습니다.');
+    process.exit(0);
+  });
+});
+
+process.on('SIGINT', () => {
+  console.log('🔄 SIGINT 신호 받음. 서버를 종료합니다...');
+  server.close(() => {
+    console.log('✅ 서버가 정상적으로 종료되었습니다.');
+    process.exit(0);
+  });
 });
 
 // HTTP 요청 처리 (헬스체크 및 기본 라우팅)
@@ -411,16 +437,22 @@ server.on('request', (req, res) => {
   const url = req.url;
   
   if (url === '/health' || url === '/') {
-    // 헬스체크 엔드포인트
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({
-      status: 'OK',
-      message: '틱택토 멀티플레이어 서버가 정상 작동 중입니다',
-      timestamp: new Date().toISOString(),
-      uptime: process.uptime(),
-      version: '1.0.0',
-      stats: gameManager.getStats()
-    }));
+    // 헬스체크 엔드포인트 - Railway 헬스체크용으로 단순화
+    try {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({
+        status: 'OK',
+        message: 'Server is healthy',
+        timestamp: new Date().toISOString(),
+        port: PORT,
+        uptime: process.uptime()
+      }));
+      console.log('✅ Health check 요청 처리 완료');
+    } catch (error) {
+      console.error('❌ Health check 에러:', error);
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ status: 'ERROR', error: error.message }));
+    }
   } else if (url === '/stats') {
     // 통계 엔드포인트
     res.writeHead(200, { 'Content-Type': 'application/json' });
