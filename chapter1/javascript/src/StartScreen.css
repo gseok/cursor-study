@@ -1,0 +1,381 @@
+/* 시작 화면 스타일 */
+.start-screen {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.start-container {
+  max-width: 1000px;
+  width: 100%;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 헤더 */
+.start-header {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.game-title {
+  font-size: 3rem;
+  margin: 0 0 10px 0;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.title-icon {
+  font-size: 3.5rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.game-subtitle {
+  font-size: 1.2rem;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* 게임 옵션 */
+.game-options {
+  padding: 40px;
+}
+
+.option-section {
+  margin-bottom: 40px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.section-icon {
+  font-size: 2rem;
+}
+
+/* 보드 크기 그리드 */
+.board-size-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.board-size-section {
+  background: #f8f9ff;
+  border-radius: 15px;
+  padding: 25px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.board-size-section:hover {
+  border-color: #4facfe;
+  box-shadow: 0 10px 30px rgba(79, 172, 254, 0.1);
+  transform: translateY(-2px);
+}
+
+/* 보드 미리보기 */
+.board-preview {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.preview-grid {
+  display: grid;
+  gap: 3px;
+  background: #ddd;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.grid-3x3 {
+  grid-template-columns: repeat(3, 30px);
+  grid-template-rows: repeat(3, 30px);
+}
+
+.grid-4x4 {
+  grid-template-columns: repeat(4, 25px);
+  grid-template-rows: repeat(4, 25px);
+}
+
+.preview-cell {
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
+.preview-x {
+  color: #e74c3c;
+  font-size: 20px;
+}
+
+.preview-o {
+  color: #3498db;
+  font-size: 18px;
+}
+
+/* 보드 정보 */
+.board-info {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.board-name {
+  font-size: 1.4rem;
+  color: #333;
+  margin: 0 0 8px 0;
+  font-weight: bold;
+}
+
+.board-description {
+  color: #666;
+  margin: 0 0 10px 0;
+  font-size: 0.95rem;
+}
+
+.difficulty-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.difficulty-badge.easy {
+  background: #d4edda;
+  color: #155724;
+}
+
+.difficulty-badge.hard {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* 게임 모드 버튼 */
+.game-mode-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mode-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+  border: 2px solid #e0e6ed;
+}
+
+.mode-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.mode-button.mode-1 {
+  color: #2c3e50;
+}
+
+.mode-button.mode-1:hover {
+  background: #ecf0f1;
+  border-color: #34495e;
+}
+
+.mode-button.mode-2 {
+  color: #27ae60;
+}
+
+.mode-button.mode-2:hover {
+  background: #d5f4e6;
+  border-color: #27ae60;
+}
+
+.mode-button.mode-3 {
+  color: #e74c3c;
+}
+
+.mode-button.mode-3:hover {
+  background: #fadbd8;
+  border-color: #e74c3c;
+}
+
+.mode-icon {
+  font-size: 1.5rem;
+}
+
+.mode-name {
+  flex: 1;
+  text-align: left;
+}
+
+/* 규칙 섹션 */
+.rules-section {
+  background: #f8f9ff;
+  border-radius: 15px;
+  padding: 30px;
+  margin-top: 40px;
+}
+
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.rule-item {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.rule-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.rule-content h4 {
+  margin: 0 0 8px 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.rule-content p {
+  margin: 0;
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* 푸터 */
+.start-footer {
+  background: #f8f9fa;
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .start-container {
+    margin: 10px;
+    border-radius: 15px;
+  }
+  
+  .start-header {
+    padding: 30px 20px;
+  }
+  
+  .game-title {
+    font-size: 2.2rem;
+  }
+  
+  .title-icon {
+    font-size: 2.5rem;
+  }
+  
+  .game-subtitle {
+    font-size: 1rem;
+  }
+  
+  .game-options {
+    padding: 25px;
+  }
+  
+  .board-size-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .board-size-section {
+    padding: 20px;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .rules-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .rule-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .start-screen {
+    padding: 10px;
+  }
+  
+  .game-title {
+    font-size: 1.8rem;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .mode-button {
+    padding: 12px 15px;
+    font-size: 0.9rem;
+  }
+  
+  .mode-icon {
+    font-size: 1.3rem;
+  }
+}

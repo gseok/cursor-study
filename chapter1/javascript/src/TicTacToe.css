@@ -1,0 +1,377 @@
+/* 틱택토 게임 CSS 스타일 */
+
+.tictactoe-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* 헤더 스타일 */
+.tictactoe-header {
+  margin-bottom: 30px;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.back-button {
+  padding: 10px 20px;
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background: #5a6268;
+  transform: translateY(-1px);
+}
+
+.game-info {
+  text-align: center;
+  flex: 1;
+}
+
+.tictactoe-header h1 {
+  color: #333;
+  margin: 0 0 5px 0;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.game-mode-display {
+  margin: 0;
+  color: #666;
+  font-size: 1rem;
+}
+
+/* 게임 모드 선택 */
+.mode-selection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.mode-selection span {
+  font-weight: bold;
+  color: #555;
+}
+
+.mode-selection label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.mode-selection label:hover {
+  background-color: #f0f0f0;
+}
+
+.mode-selection input[type="radio"] {
+  margin: 0;
+  cursor: pointer;
+}
+
+/* 현재 플레이어 표시 */
+.current-player {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.player-x {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.player-o {
+  color: #3498db;
+  font-weight: bold;
+}
+
+/* 게임 보드 */
+.game-board {
+  display: grid;
+  gap: 8px;
+  margin: 0 auto 30px;
+  background-color: #34495e;
+  padding: 8px;
+  border-radius: 12px;
+}
+
+.board-3x3 {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 300px;
+}
+
+.board-4x4 {
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 400px;
+}
+
+.cell {
+  border: none;
+  border-radius: 8px;
+  background-color: #ecf0f1;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cell-3x3 {
+  width: 90px;
+  height: 90px;
+  font-size: 2.5rem;
+}
+
+.cell-4x4 {
+  width: 90px;
+  height: 90px;
+  font-size: 2rem;
+}
+
+.cell:hover:not(.cell-disabled):not([disabled]) {
+  background-color: #d5dbdb;
+  transform: scale(1.05);
+}
+
+.cell:active:not(.cell-disabled):not([disabled]) {
+  transform: scale(0.95);
+}
+
+.cell-x {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.cell-o {
+  background-color: #3498db;
+  color: white;
+}
+
+.cell-winner {
+  background-color: #f1c40f !important;
+  color: #2c3e50 !important;
+  animation: pulse 0.6s ease-in-out infinite alternate;
+}
+
+.cell-disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
+/* 점수 표시 */
+.score-board {
+  margin-bottom: 30px;
+}
+
+.score-board h3 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.score-display {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.score-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  min-width: 80px;
+}
+
+.score-item span:first-child {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.score-item span:last-child {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* 컨트롤 버튼 */
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 140px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-primary {
+  background-color: #27ae60;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #229954;
+}
+
+.btn-secondary {
+  background-color: #f39c12;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #e67e22;
+}
+
+/* 상태 표시 */
+.status {
+  font-size: 1.1rem;
+  color: #666;
+  font-weight: 500;
+  min-height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 480px) {
+  .tictactoe-container {
+    padding: 15px;
+    margin: 10px;
+  }
+  
+  .tictactoe-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .mode-selection {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .mode-selection label {
+    font-size: 0.8rem;
+  }
+  
+  .board-3x3 {
+    max-width: 250px;
+  }
+  
+  .board-4x4 {
+    max-width: 320px;
+  }
+  
+  .cell-3x3 {
+    width: 70px;
+    height: 70px;
+    font-size: 2rem;
+  }
+  
+  .cell-4x4 {
+    width: 70px;
+    height: 70px;
+    font-size: 1.6rem;
+  }
+  
+  .score-display {
+    gap: 15px;
+  }
+  
+  .score-item {
+    min-width: 60px;
+    padding: 8px 10px;
+  }
+  
+  .controls {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn {
+    min-width: 200px;
+    padding: 10px 20px;
+  }
+  
+  .current-player {
+    font-size: 1rem;
+  }
+  
+  .status {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .board-3x3 {
+    max-width: 220px;
+  }
+  
+  .board-4x4 {
+    max-width: 280px;
+  }
+  
+  .cell-3x3 {
+    width: 60px;
+    height: 60px;
+    font-size: 1.8rem;
+  }
+  
+  .cell-4x4 {
+    width: 60px;
+    height: 60px;
+    font-size: 1.4rem;
+  }
+}

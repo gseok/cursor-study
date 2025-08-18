@@ -1,0 +1,465 @@
+/* 멀티플레이어 틱택토 스타일 */
+
+.mp-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  min-height: 500px;
+}
+
+/* 연결 화면 */
+.mp-connect-screen {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.mp-connect-screen h1 {
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+}
+
+.mp-connect-form {
+  background: #f8f9fa;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.mp-connect-form h2 {
+  color: #495057;
+  margin-bottom: 10px;
+}
+
+.mp-connect-form p {
+  color: #6c757d;
+  margin-bottom: 25px;
+}
+
+.mp-name-input {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1rem;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  transition: border-color 0.3s;
+}
+
+.mp-name-input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.mp-connect-btn {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 15px;
+}
+
+.mp-connect-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.mp-connect-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.mp-back-btn {
+  padding: 10px 20px;
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.mp-back-btn:hover {
+  background: #5a6268;
+}
+
+.mp-error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 6px;
+  margin: 10px 0;
+  border: 1px solid #f5c6cb;
+}
+
+/* 게임 헤더 */
+.mp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.mp-leave-btn {
+  padding: 10px 20px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mp-leave-btn:hover {
+  background: #c82333;
+  transform: translateY(-1px);
+}
+
+.mp-game-info {
+  flex: 1;
+  text-align: center;
+}
+
+.mp-game-info h1 {
+  color: #333;
+  margin: 0 0 10px 0;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+/* 플레이어 정보 */
+.mp-players {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 10px;
+}
+
+.mp-player {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 15px;
+  background: #f8f9fa;
+  border-radius: 20px;
+  transition: all 0.3s;
+}
+
+.mp-player-me {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+}
+
+.mp-symbol {
+  font-size: 1.5rem;
+  font-weight: bold;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mp-symbol-x {
+  background: #dc3545;
+  color: white;
+}
+
+.mp-symbol-o {
+  background: #007bff;
+  color: white;
+}
+
+.mp-player-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* 상태 표시 */
+.mp-status {
+  margin-bottom: 25px;
+  min-height: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mp-status-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #495057;
+  padding: 12px 25px;
+  background: #e9ecef;
+  border-radius: 25px;
+  transition: all 0.3s;
+}
+
+.mp-status-text.mp-my-turn {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+}
+
+/* 로딩 스피너 */
+.mp-loading {
+  margin-top: 15px;
+}
+
+.mp-spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 게임 보드 */
+.mp-game-board {
+  display: grid;
+  gap: 8px;
+  margin: 0 auto 30px;
+  background-color: #343a40;
+  padding: 12px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.mp-board-3x3 {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 320px;
+}
+
+.mp-board-4x4 {
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 400px;
+}
+
+.mp-cell {
+  border: none;
+  border-radius: 10px;
+  background-color: #ffffff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.mp-cell-3x3 {
+  width: 95px;
+  height: 95px;
+  font-size: 2.5rem;
+}
+
+.mp-cell-4x4 {
+  width: 90px;
+  height: 90px;
+  font-size: 2rem;
+}
+
+.mp-cell:hover:not(.mp-cell-disabled):not([disabled]) {
+  background-color: #e3f2fd;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.mp-cell:active:not(.mp-cell-disabled):not([disabled]) {
+  transform: scale(0.95);
+}
+
+.mp-cell-x {
+  background: linear-gradient(135deg, #dc3545, #c82333);
+  color: white;
+}
+
+.mp-cell-o {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+}
+
+.mp-cell-winner {
+  background: linear-gradient(135deg, #ffc107, #e0a800) !important;
+  color: #212529 !important;
+  animation: winner-pulse 0.6s ease-in-out infinite alternate;
+}
+
+.mp-cell-disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+@keyframes winner-pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
+/* 게임 완료 */
+.mp-game-over {
+  margin-top: 20px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.mp-game-over-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.mp-play-again-btn {
+  padding: 12px 25px;
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.mp-play-again-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.mp-menu-btn {
+  padding: 12px 25px;
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.mp-menu-btn:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .mp-container {
+    margin: 10px;
+    padding: 15px;
+  }
+  
+  .mp-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .mp-game-info h1 {
+    font-size: 1.5rem;
+  }
+  
+  .mp-players {
+    gap: 15px;
+  }
+  
+  .mp-board-3x3 {
+    max-width: 280px;
+  }
+  
+  .mp-board-4x4 {
+    max-width: 340px;
+  }
+  
+  .mp-cell-3x3 {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+  }
+  
+  .mp-cell-4x4 {
+    width: 75px;
+    height: 75px;
+    font-size: 1.6rem;
+  }
+  
+  .mp-game-over-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .mp-play-again-btn,
+  .mp-menu-btn {
+    width: 100%;
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mp-connect-form {
+    padding: 20px;
+  }
+  
+  .mp-board-3x3 {
+    max-width: 240px;
+  }
+  
+  .mp-board-4x4 {
+    max-width: 300px;
+  }
+  
+  .mp-cell-3x3 {
+    width: 70px;
+    height: 70px;
+    font-size: 1.8rem;
+  }
+  
+  .mp-cell-4x4 {
+    width: 65px;
+    height: 65px;
+    font-size: 1.4rem;
+  }
+  
+  .mp-status-text {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}
