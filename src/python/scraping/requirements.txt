@@ -1,0 +1,6 @@
+# KBO 팀 순위 스크래핑에 필요한 Python 패키지들
+requests>=2.28.0
+beautifulsoup4>=4.11.0
+lxml>=4.9.0
+selenium>=4.0.0
+webdriver-manager>=3.8.0
